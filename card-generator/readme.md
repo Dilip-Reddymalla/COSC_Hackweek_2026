@@ -3,8 +3,8 @@
 Create a polished, downloadable digital business card from a simple HTML form. Live preview updates as you type, multiple templates are included, and you can download the result as PNG or PDF.
 
 **Files**
-- **Project:** [Card_Generator.html](Card%20Generator/Card_Generator.html)
-- **This README:** [readme.md](Card%20Generator/readme.md)
+- **Project:** [Card_Generator.html](Card_Generator.html)
+- **This README:** [readme.md](readme.md)
 
 **Features**
 - **Live Preview:** updates while you type `Name` and social handles.
@@ -14,7 +14,7 @@ Create a polished, downloadable digital business card from a simple HTML form. L
 - **Responsive:** layout adapts to smaller viewports.
 
 **Quick Start**
-1. Open the generator in your browser: open the file [Card_Generator.html](Card%20Generator/Card_Generator.html).
+1. Open the generator in your browser: open the file [Card_Generator.html](Card_Generator.html).
 2. Fill in your `Name` field.
 3. Enter one or more social handles in the **Social Media** input(s). Use **Add more socials** to add extra fields.
 4. Choose a template from the **Choose a template** dropdown.
@@ -31,7 +31,7 @@ Create a polished, downloadable digital business card from a simple HTML form. L
 	- `https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js`
 
 **Customization**
-- To change styles, edit the `<style>` block in [Card_Generator.html](Card%20Generator/Card_Generator.html).
+- To change styles, edit the `<style>` block in [Card_Generator.html](Card_Generator.html).
 - To add or modify templates, update or add template functions (`template1`, etc.) in the `<script>` section.
 - To change output filename or export options, modify the `link.download` (PNG) or `pdf.save(...)` (PDF) calls in the script.
 
