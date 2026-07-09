@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Digital Business Card Generator</title>
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background: #f5f7fb;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 40px;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 900px;
+        background: #fff;
+        border-radius: 18px;
+        padding: 40px;
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+      }
+
+      h1 {
+        text-align: center;
+        color: #222;
+        margin-bottom: 10px;
+      }
+
+      .container > p {
+        text-align: center;
+        color: #777;
+        margin-bottom: 35px;
+      }
+
+      .content {
+        display: grid;
+        grid-template-columns: 1fr 420px;
+        gap: 40px;
+        align-items: start;
+      }
+
+      .left-panel {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .right-panel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .details,
+      .template_selection {
+        margin-bottom: 30px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #333;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 14px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        font-size: 15px;
+        margin-bottom: 18px;
+        background: #fafafa;
+        transition: 0.3s;
+      }
+
+      input:focus,
+      select:focus {
+        outline: none;
+        background: #fff;
+        border-color: #4f46e5;
+        box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
+      }
+
+      button {
+        padding: 13px 22px;
+        border: none;
+        border-radius: 10px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      button:hover {
+        transform: translateY(-2px);
+      }
+
+      .details button {
+        background: #f3f4f6;
+        color: #333;
+        border: 1px solid #ddd;
+        padding: 10px 18px;
+      }
+
+      .details button:hover {
+        background: #e5e7eb;
+      }
+
+      #generateCard {
+        width: 100%;
+        background: #4f46e5;
+        color: white;
+      }
+
+      #generateCard:hover {
+        background: #3730a3;
+      }
+
+      #cardPreview {
+        width: 100%;
+        max-width: 420px;
+        height: 230px;
+        border-radius: 18px;
+        background: linear-gradient(135deg, #1f2937, #111827);
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 30px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+      }
+
+      #cardPreview h2 {
+        font-size: 28px;
+        margin-bottom: 10px;
+      }
+
+      #cardPreview p {
+        color: #d1d5db;
+        margin: 4px 0;
+      }
+
+      #downloadCard_pdf {
+        width: 100%;
+        background: #ef4444;
+        color: white;
+      }
+
+      #downloadCard_png {
+        width: 100%;
+        background: #10b981;
+        color: white;
+      }
+
+      #resetForm {
+        width: 100%;
+        margin-top: 30px;
+        background: #111827;
+        color: white;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 25px;
+        }
+
+        .content {
+          grid-template-columns: 1fr;
+        }
+
+        .right-panel button,
+        #resetForm {
+          width: 100%;
+        }
+
+        #cardPreview {
+          max-width: 100%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Digital Business Card Generator</h1>
+      <p>Create your custom digital business card in seconds!</p>
+
+      <div class="content">
+        <div class="left-panel">
+          <div class="details">
+            <label for="name">Name:</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Enter your name"
+            />
+
+            <label for="socials">Social Media:</label>
+            <input
+              type="text"
+              id="socials"
+              class="socials"
+              name="socials"
+              placeholder="Enter your social media handles"
+            />
+
+            <button id="addMoreSocials">Add more socials</button>
+          </div>
+
+          <div class="template_selection">
+            <label for="template">Choose a template:</label>
+
+            <select id="template" name="template">
+              <option value="template1">Template 1</option>
+              <option value="template2">Template 2</option>
+              <option value="template3">Template 3</option>
+            </select>
+          </div>
+
+          <button id="generateCard">Generate Card</button>
+        </div>
+
+        <div class="right-panel">
+          <div id="cardPreview">
+            <!-- Live Preview -->
+          </div>
+
+          <button id="downloadCard_pdf">Download PDF</button>
+
+          <button id="downloadCard_png">Download Image</button>
+        </div>
+      </div>
+
+      <button id="resetForm">Generate another card</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script>
+      let gen = false;
+
+      function template1(data) {
+        const socialsHTML = data.socials
+          .map((social) => `<p>${social}</p>`)
+          .join("");
+
+        return `
+    <div style="
+        width:350px;
+        height:200px;
+        background:white;
+        border-radius:18px;
+        box-shadow:0 10px 30px rgba(0,0,0,.15);
+        padding:25px;
+        border-left:8px solid #4f46e5;
+        display:flex;
+        flex-direction:column;
+        justify-content:space-between;
+        font-family:Poppins,sans-serif;
+    ">
+
+        <div>
+            <h2 style="
+                margin:0;
+                color:#222;
+                font-size:28px;
+            ">
+                ${data.name}
+            </h2>
+
+            <p style="
+                color:#666;
+                margin-top:8px;
+                font-size:15px;
+            ">
+                ${socialsHTML}
+            </p>
+        </div>
+
+        <div style="
+            color:#4f46e5;
+            font-weight:bold;
+            font-size:14px;
+        ">
+            Digital Business Card
+        </div>
+
+    </div>
+    `;
+      }
+      function template2(data) {
+        const socialsHTML = data.socials
+          .map((social) => `<p>${social}</p>`)
+          .join("");
+        return `
+    <div style="
+        width:350px;
+        height:200px;
+        background:#111827;
+        border-radius:18px;
+        padding:25px;
+        color:white;
+        display:flex;
+        flex-direction:column;
+        justify-content:space-between;
+        font-family:Poppins,sans-serif;
+    ">
+
+        <div>
+            <h2 style="
+                margin:0;
+                color:#60a5fa;
+                font-size:28px;
+            ">
+                ${data.name}
+            </h2>
+
+            <hr style="
+                border:none;
+                height:2px;
+                background:#374151;
+                margin:15px 0;
+            ">
+
+            <p style="
+                color:#d1d5db;
+                line-height:1.8;
+            ">
+                ${socialsHTML}
+            </p>
+        </div>
+
+        <div style="
+            color:#60a5fa;
+            font-size:14px;
+        ">
+            Professional Profile
+        </div>
+
+    </div>
+    `;
+      }
+      function template3(data) {
+        const socialsHTML = data.socials
+          .map((social) => `<p>${social}</p>`)
+          .join("");
+        return `
+    <div style="
+        width:350px;
+        height:200px;
+        background:linear-gradient(135deg,#7c3aed,#2563eb);
+        border-radius:18px;
+        padding:25px;
+        color:white;
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+        text-align:center;
+        font-family:Poppins,sans-serif;
+        box-shadow:0 12px 35px rgba(0,0,0,.2);
+    ">
+
+        <h2 style="
+            margin:0;
+            font-size:30px;
+        ">
+            ${data.name}
+        </h2>
+
+        <p style="
+            margin-top:15px;
+            line-height:1.8;
+            color:#f3f4f6;
+        ">
+            ${socialsHTML}
+        </p>
+
+    </div>
+    `;
+      }
+
+      let nameInput = document.getElementById("name");
+      const socialsInput = document.querySelectorAll(".socials");
+      let templateSelect = document.getElementById("template");
+      let cardPreview = document.getElementById("cardPreview");
+      let addMoreSocialsButton = document.getElementById("addMoreSocials");
+      let genarateCardButton = document.getElementById("generateCard");
+      let resetFormButton = document.getElementById("resetForm");
+
+      genarateCardButton.addEventListener("click", function () {
+        updatePreview();
+        gen = true;
+        alert("Card generated successfully! You can now download it.");
+      });
+
+      resetFormButton.addEventListener("click", function () {
+        nameInput.value = "";
+        socialsInputs.forEach((input) => (input.value = ""));
+        templateSelect.value = "template1";
+        cardPreview.innerHTML = "";
+        gen = false;
+      });
+
+      nameInput.addEventListener("input", updatePreview);
+      socialsInputs = Array.from(socialsInput);
+      socialsInputs.forEach((socailInput) => {
+        socailInput.addEventListener("input", updatePreview);
+      });
+      templateSelect.addEventListener("change", updatePreview);
+
+      addMoreSocialsButton.addEventListener("click", function () {
+        const newInput = document.createElement("input");
+        newInput.type = "text";
+        newInput.className = "socials";
+        newInput.id = "socials";
+        newInput.name = "socials";
+        newInput.placeholder = "Enter your social media handles";
+        newInput.addEventListener("input", updatePreview);
+        addMoreSocialsButton.parentNode.insertBefore(
+          newInput,
+          addMoreSocialsButton,
+        );
+      });
+
+      function updatePreview() {
+        const socials = [...document.querySelectorAll(".socials")]
+          .map((input) => input.value)
+          .filter((value) => value.trim() !== "");
+
+        const data = {
+          name: nameInput.value,
+          socials: socials,
+        };
+
+        const templates = {
+          template1,
+          template2,
+          template3,
+        };
+
+        cardPreview.innerHTML = templates[templateSelect.value](data);
+      }
+      const downloadPNG = document.getElementById("downloadCard_png");
+
+      downloadPNG.addEventListener("click", async () => {
+        if (gen == false) {
+          alert("Please generate the card first!");
+          return;
+        }
+        const card = document.getElementById("cardPreview");
+
+        const canvas = await html2canvas(card, {
+          scale: 2,
+          useCORS: true,
+        });
+
+        const link = document.createElement("a");
+
+        link.download = "business-card.png";
+
+        link.href = canvas.toDataURL("image/png");
+
+        link.click();
+      });
+
+      const downloadPDF = document.getElementById("downloadCard_pdf");
+
+      downloadPDF.addEventListener("click", async () => {
+        if (gen == false) {
+          alert("Please generate the card first!");
+          return;
+        }
+
+        const card = document.getElementById("cardPreview");
+
+        const canvas = await html2canvas(card);
+
+        const imgData = canvas.toDataURL("image/png");
+
+        const { jsPDF } = window.jspdf;
+
+        const pdf = new jsPDF({
+          orientation: "landscape",
+          unit: "px",
+          format: [canvas.width, canvas.height],
+        });
+
+        pdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height);
+
+        pdf.save("business-card.pdf");
+      });
+    </script>
+  </body>
+</html>
