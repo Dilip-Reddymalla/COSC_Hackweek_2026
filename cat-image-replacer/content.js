@@ -23,15 +23,19 @@ const observer = new MutationObserver((mutations) => {
     });
 });
 
-observer.observe(document.body, {
-    childList: true,
-    subtree: true
-});
+function startReplacingImages() {
+    replaceExistingImages();
+
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+}
 
 chrome.runtime.onMessage.addListener((message) => {
 
     if (message.action === "replaceImages") {
-        replaceExistingImages();
+        startReplacingImages();
     }
 
 });
