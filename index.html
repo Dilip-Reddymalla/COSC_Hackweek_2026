@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>COSC Hackweek 2026 Projects</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f2f5f9;
+        --surface: #ffffff;
+        --surface-tint: #f8fbff;
+        --text: #1d2433;
+        --muted: #5a667f;
+        --accent: #005bbb;
+        --accent-soft: #eaf3ff;
+        --accent-2: #ff7a00;
+        --border: #d7dfeb;
+        --shadow-lg: 0 18px 45px rgba(20, 33, 61, 0.12);
+        --shadow-md: 0 10px 28px rgba(20, 33, 61, 0.09);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Space Grotesk", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at 90% 10%, rgba(255, 122, 0, 0.18), transparent 36%),
+          radial-gradient(circle at 12% 85%, rgba(0, 91, 187, 0.14), transparent 34%),
+          var(--bg);
+        line-height: 1.6;
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      body::before,
+      body::after {
+        content: "";
+        position: fixed;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        z-index: -1;
+        filter: blur(14px);
+        opacity: 0.33;
+      }
+
+      body::before {
+        top: -120px;
+        right: -80px;
+        background: linear-gradient(120deg, #ff7a00, #ffba66);
+      }
+
+      body::after {
+        bottom: -130px;
+        left: -90px;
+        background: linear-gradient(120deg, #005bbb, #5fa6ff);
+      }
+
+      .container {
+        width: min(1100px, 92%);
+        margin: 0 auto;
+      }
+
+      header {
+        padding: 72px 0 26px;
+      }
+
+      .hero {
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(140deg, #ffffff, #f4f9ff 58%, #fff4e8);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        box-shadow: var(--shadow-lg);
+        padding: 40px;
+      }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        width: 320px;
+        height: 320px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 122, 0, 0.18), rgba(255, 122, 0, 0));
+        right: -120px;
+        top: -140px;
+        pointer-events: none;
+      }
+
+      .badge {
+        display: inline-block;
+        font-size: 0.76rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #0d2f54;
+        background: linear-gradient(90deg, #e7f1ff, #ffe8d1);
+        border-radius: 999px;
+        border: 1px solid #bfd6f7;
+        padding: 7px 12px;
+        margin-bottom: 16px;
+        font-weight: 700;
+      }
+
+      h1 {
+        font-family: "Sora", "Space Grotesk", sans-serif;
+        font-size: clamp(2rem, 4.6vw, 3.25rem);
+        line-height: 1.14;
+        margin: 0 0 14px;
+        letter-spacing: -0.02em;
+      }
+
+      .hero p {
+        max-width: 76ch;
+        color: var(--muted);
+        margin: 0;
+        font-size: 1.03rem;
+      }
+
+      .hero-links {
+        margin-top: 28px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .btn {
+        display: inline-block;
+        text-decoration: none;
+        font-weight: 700;
+        border-radius: 12px;
+        padding: 11px 18px;
+        border: 1px solid transparent;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      }
+
+      .btn-primary {
+        color: #ffffff;
+        background: linear-gradient(110deg, var(--accent), #0072e8);
+        box-shadow: 0 8px 20px rgba(0, 91, 187, 0.28);
+      }
+
+      .btn-secondary {
+        color: var(--text);
+        background: var(--surface);
+        border-color: var(--border);
+        box-shadow: 0 6px 16px rgba(20, 33, 61, 0.08);
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+
+      main {
+        padding: 22px 0 58px;
+      }
+
+      section {
+        margin-top: 30px;
+      }
+
+      h2 {
+        margin: 0 0 10px;
+        font-family: "Sora", "Space Grotesk", sans-serif;
+        font-size: clamp(1.35rem, 2.6vw, 1.95rem);
+        letter-spacing: -0.01em;
+      }
+
+      .section-intro {
+        color: var(--muted);
+        margin: 0 0 22px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 20px;
+      }
+
+      .card {
+        background: linear-gradient(140deg, var(--surface), var(--surface-tint));
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        box-shadow: var(--shadow-md);
+        padding: 22px;
+        transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 18px 40px rgba(20, 33, 61, 0.16);
+        border-color: #c3d5ee;
+      }
+
+      .card h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-family: "Sora", "Space Grotesk", sans-serif;
+        font-size: 1.15rem;
+      }
+
+      .card p {
+        margin: 0 0 14px;
+        color: var(--muted);
+      }
+
+      .card-links {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .card-links a {
+        text-decoration: none;
+        font-weight: 700;
+        color: var(--accent);
+        background: var(--accent-soft);
+        border: 1px solid #cae0ff;
+        border-radius: 10px;
+        padding: 7px 11px;
+        transition: background 0.2s ease, transform 0.2s ease;
+      }
+
+      .card-links a:hover {
+        background: #dcecff;
+        transform: translateY(-1px);
+      }
+
+      .points-box {
+        border-left: 5px solid var(--accent-2);
+      }
+
+      footer {
+        padding: 10px 0 44px;
+        color: var(--muted);
+        font-size: 0.95rem;
+        text-align: center;
+      }
+
+      @media (max-width: 800px) {
+        header {
+          padding-top: 56px;
+        }
+
+        .hero {
+          padding: 30px;
+        }
+
+        .hero p {
+          font-size: 0.99rem;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .hero {
+          padding: 24px;
+        }
+
+        .hero-links,
+        .card-links {
+          gap: 10px;
+        }
+
+        .btn,
+        .card-links a {
+          width: 100%;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="hero">
+          <span class="badge">CBIT Open Source Community</span>
+          <h1>COSC Hackweek 2026 Project Showcase</h1>
+          <p>
+            This repository contains challenge projects built for Hackweek by COSC
+            (CBIT Open Source Community), CBIT. During Hackweek, participants solve
+            challenges and earn points based on challenge difficulty. A live
+            leaderboard tracks progress and rankings throughout the event.
+          </p>
+          <div class="hero-links">
+            <a
+              class="btn btn-primary"
+              href="https://coschackweek.vercel.app/challenges"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Hackweek Challenges</a
+            >
+            <a
+              class="btn btn-secondary"
+              href="https://github.com/Dilip-Reddymalla/COSC_Hackweek_2026"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Repository</a
+            >
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <section>
+          <h2>Projects in This Repo</h2>
+          <p class="section-intro">
+            Each project below includes a deployment link and a source folder link.
+          </p>
+
+          <div class="grid">
+            <article class="card">
+              <h3>Digital Business Card Generator</h3>
+              <p>
+                Build a polished digital card from form inputs, preview it live,
+                and download as PNG or PDF.
+              </p>
+              <div class="card-links">
+                <a
+                  href="https://dilip-reddymalla.github.io/COSC_Hackweek_2026/card-generator/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Deployment</a
+                >
+                <a
+                  href="./card-generator/index.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Open Local Project</a
+                >
+              </div>
+            </article>
+
+            <article class="card">
+              <h3>File Metadata Inspector</h3>
+              <p>
+                Upload a file to inspect metadata, including EXIF for images and
+                document details for PDFs.
+              </p>
+              <div class="card-links">
+                <a
+                  href="https://dilip-reddymalla.github.io/COSC_Hackweek_2026/file-metadata-inspector/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Deployment</a
+                >
+                <a
+                  href="./file-metadata-inspector/index.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Open Local Project</a
+                >
+              </div>
+            </article>
+
+            <article class="card points-box">
+              <h3>Hackweek Scoring Model</h3>
+              <p>
+                Challenges have different levels and points. Solving harder
+                challenges gives more points, and the leaderboard updates to show
+                top performers.
+              </p>
+              <div class="card-links">
+                <a
+                  href="https://coschackweek.vercel.app/challenges"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >View Challenge Levels</a
+                >
+              </div>
+            </article>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        Built for COSC Hackweek 2026 at CBIT.
+      </div>
+    </footer>
+  </body>
+</html>
