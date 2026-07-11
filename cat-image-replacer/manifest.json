@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Cat Image Replacer",
+  "version": "1.0",
+  "description": "Replace all webpage images with random cat images.",
+  "icons": {
+    
+  },
+  "host_permissions": [
+    "https://cataas.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
+}

@@ -21,6 +21,7 @@ This repo is a collection of challenge-based mini projects created during the Ha
 | Project | Description | Deployment | Source |
 |---|---|---|---|
 | Digital Business Card Generator | Generate a digital business card with live preview and download as PNG/PDF | https://dilip-reddymalla.github.io/COSC_Hackweek_2026/card-generator/ | ./card-generator |
+| Cat Image Replacer | Browser extension that replaces webpage images with random cat images | Not applicable, extension project | ./cat-image-replacer |
 | File Metadata Inspector | Upload a file and inspect metadata (EXIF for images, metadata for PDFs) | https://dilip-reddymalla.github.io/COSC_Hackweek_2026/file-metadata-inspector/ | ./file-metadata-inspector |
 
 ## Main Landing Page
@@ -48,6 +49,12 @@ COSC_Hackweek_2026/
 ├── README.md
 ├── card-generator/
 │   ├── index.html
+│   └── readme.md
+├── cat-image-replacer/
+│   ├── content.js
+│   ├── manifest.json
+│   ├── popup.html
+│   ├── popup.js
 │   └── readme.md
 └── file-metadata-inspector/
     ├── index.html
